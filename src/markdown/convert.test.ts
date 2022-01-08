@@ -173,7 +173,8 @@ describe("markdownrify", () => {
         language: "typescript",
         text: [
           {
-            content: "console.log(x)",
+            content: `const x = 'Hello, world';
+console.log(x);`,
             bold: false,
             italic: false,
             strikethrough: false,
@@ -196,7 +197,7 @@ describe("markdownrify", () => {
 - hello
 1. world
 ` +
-        "```typescript\nconsole.log(x)\n```"
+        "```typescript\nconst x = 'Hello, world';\nconsole.log(x);\n```"
     );
   });
 });
