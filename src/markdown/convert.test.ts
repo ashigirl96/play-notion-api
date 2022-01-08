@@ -10,6 +10,10 @@ const space = {
   code: false,
 };
 
+describe("blockToMarkdownObject", () => {
+  test("success", () => {});
+});
+
 describe("markdownrify", () => {
   test("success", () => {
     const tests: MarkdownObject[] = [
