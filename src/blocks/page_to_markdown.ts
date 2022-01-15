@@ -1,7 +1,7 @@
-import { markdownrify, blockToMarkdownObject } from "../markdown/converter";
-const dotenv = require("dotenv");
+import { markdownrify, blockToMarkdownObject } from "../markdown/converter.js";
+import * as dotenv from "dotenv";
 dotenv.config({ path: ".env.local" });
-const { Client } = require("@notionhq/client");
+import { Client } from "@notionhq/client";
 
 const notion = new Client({ auth: process.env.NOTION_API_KEY });
 
@@ -15,8 +15,8 @@ const notion = new Client({ auth: process.env.NOTION_API_KEY });
   const { results } = response;
   console.log(
     markdownrify(
-      // @ts-ignore
       results.map((result) => {
+        // @ts-ignore
         const type = result.type;
         // @ts-ignore
         return blockToMarkdownObject(type, result);

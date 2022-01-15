@@ -1,3 +1,4 @@
+// @ts-ignore
 import { QueryDatabaseResponse } from "@notionhq/client/build/src/api-endpoints";
 const dotenv = require("dotenv");
 dotenv.config({ path: ".env.local" });
