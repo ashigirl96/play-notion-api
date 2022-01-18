@@ -3,6 +3,8 @@ import markdown from "remark-parse";
 import remark2rehype from "remark-rehype";
 import html from "rehype-stringify";
 import rehypeReact from "rehype-react";
+import rehypeStringify from "rehype-stringify";
+
 import { createElement, Fragment, useEffect } from "react";
 
 const input = `
@@ -11,6 +13,7 @@ const input = `
 ### hoge
 This is **Notion** *api*.
 
+> this is description
 > this is description
 `;
 
@@ -24,16 +27,19 @@ This is **Notion** *api*.
 
 const useProcessor = (text: string) => {
   useEffect(() => {
-    unified()
+    const x = unified()
       .use(markdown)
       .use(remark2rehype)
       .use(html)
-      // .use(rehypeReact, { fragment: true })
+      // .use(rehypeReact, { Fragment: true })
       .use(rehypeReact, { createElement, Fragment })
+      .use(rehypeStringify)
       .process(text)
-      .then((file) => {
-        console.log(file.result);
-      });
+      .then((file) => console.log(file.result));
+    // .process(text)
+    // .then((file) => {
+    //   console.log(file.result);
+    // });
   }, [text]);
 };
 
