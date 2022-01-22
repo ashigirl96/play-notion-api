@@ -41,6 +41,7 @@ export type NotionObject = {
   };
 } & {
   type: NotionType;
+  has_children: boolean;
 };
 
 export type MarkdownObject =
@@ -54,49 +55,45 @@ export type MarkdownObject =
   | Code
   | Paragraph;
 
-export interface Heading1 {
+interface NormalMarkdownObject {
+  text: MarkdownText[];
+  children: MarkdownObject[];
+}
+
+export interface Heading1 extends NormalMarkdownObject {
   type: "heading_1";
-  text: MarkdownText[];
 }
 
-export interface Heading2 {
+export interface Heading2 extends NormalMarkdownObject {
   type: "heading_2";
-  text: MarkdownText[];
 }
 
-export interface Heading3 {
+export interface Heading3 extends NormalMarkdownObject {
   type: "heading_3";
-  text: MarkdownText[];
 }
 
-export interface Quote {
+export interface Quote extends NormalMarkdownObject {
   type: "quote";
-  text: MarkdownText[];
 }
 
-export interface BulletedListItem {
+export interface BulletedListItem extends NormalMarkdownObject {
   type: "bulleted_list_item";
-  text: MarkdownText[];
 }
 
-export interface Todo {
+export interface Todo extends NormalMarkdownObject {
   type: "to_do";
   checked: boolean;
-  text: MarkdownText[];
 }
 
-export interface Code {
+export interface Code extends NormalMarkdownObject {
   type: "code";
   language: "typescript" | "rust";
-  text: MarkdownText[];
 }
 
-export interface NumberedListItem {
+export interface NumberedListItem extends NormalMarkdownObject {
   type: "numbered_list_item";
-  text: MarkdownText[];
 }
 
-export interface Paragraph {
+export interface Paragraph extends NormalMarkdownObject {
   type: "paragraph";
-  text: MarkdownText[];
 }
