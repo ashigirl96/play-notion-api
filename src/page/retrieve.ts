@@ -1,15 +1,17 @@
-const dotenv = require("dotenv");
+import * as dotenv from "dotenv";
 dotenv.config({ path: ".env.local" });
-const { Client } = require("@notionhq/client");
+// const { Client } = require("@notionhq/client");
+import { Client } from "@notionhq/client";
 
 const notion = new Client({ auth: process.env.NOTION_API_KEY });
 
 (async () => {
-  const pageId = "4e63b38daeb647979699c2f9bf2463da";
+  // https://www.notion.so/bc80d83f87914dc78d92caa4dc581faf?v=2e27b0c90cf046bc8a0917010b877251
+  // https://www.notion.so/106b07299be6414bb14f7c53ef26fc50?v=4f64dd0b21a84069a2f69a4e8d68a298
+  const pageId = "bc80d83f87914dc78d92caa4dc581faf";
 
-  const response = await notion.blocks.children.list({
-    block_id: pageId,
-    page_size: 10,
+  const response = await notion.pages.retrieve({
+    page_id: pageId,
   });
   console.log(JSON.stringify(response));
 })();
