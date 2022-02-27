@@ -6,9 +6,21 @@ import { Client } from "@notionhq/client";
 const notion = new Client({ auth: process.env.NOTION_API_KEY });
 
 (async () => {
+  const blockId = "34ed09e2a63049008e05042e2c531060";
+  const response = await notion.blocks.children.list({
+    block_id: blockId,
+    page_size: 50,
+  });
+  console.log(response);
+})();
+
+(async () => {
   // https://www.notion.so/bc80d83f87914dc78d92caa4dc581faf?v=2e27b0c90cf046bc8a0917010b877251
   // https://www.notion.so/106b07299be6414bb14f7c53ef26fc50?v=4f64dd0b21a84069a2f69a4e8d68a298
-  const pageId = "bc80d83f87914dc78d92caa4dc581faf";
+  // const pageId = "301306e7790249b8865bbc560bf4cc59";
+  // https://www.notion.so/xxx-fe49f7ccb47a422d9bb239de3f26712a
+  // const pageId = "fe49f7ccb47a422d9bb239de3f26712a"; // xxx
+  const pageId = "34ed09e2a63049008e05042e2c531060";
 
   const response = await notion.pages.retrieve({
     page_id: pageId,
@@ -16,27 +28,61 @@ const notion = new Client({ auth: process.env.NOTION_API_KEY });
   console.log(JSON.stringify(response));
 })();
 
-const retrievedPage = {
+const hoge = {
   object: "page",
-  id: "4e63b38d-aeb6-4797-9699-c2f9bf2463da",
+  id: "301306e7-7902-49b8-865b-bc560bf4cc59",
   created_time: "2022-01-06T15:33:00.000Z",
-  last_edited_time: "2022-01-06T15:36:00.000Z",
+  last_edited_time: "2022-02-20T16:29:00.000Z",
+  created_by: {
+    object: "user",
+    id: "d7176521-3a9a-43d2-b9ed-56cc16cc85b0",
+  },
+  last_edited_by: {
+    object: "user",
+    id: "d7176521-3a9a-43d2-b9ed-56cc16cc85b0",
+  },
   cover: null,
-  icon: null,
+  icon: {
+    type: "emoji",
+    emoji: "🎣",
+  },
   parent: {
     type: "database_id",
     database_id: "106b0729-9be6-414b-b14f-7c53ef26fc50",
   },
   archived: false,
   properties: {
+    status: {
+      id: "%3FRbz",
+      type: "select",
+      select: {
+        id: "44894613-656e-4f47-9d18-e293b966535d",
+        name: "publish",
+        color: "blue",
+      },
+    },
+    date: {
+      id: "%40T%7Cq",
+      type: "date",
+      date: {
+        start: "2022-02-02",
+        end: null,
+        time_zone: null,
+      },
+    },
     Category: {
       id: "ezhB",
       type: "multi_select",
       multi_select: [
         {
-          id: "5b2f2359-c671-4cd8-bff4-6e187a81daa7",
-          name: "強化学習",
-          color: "red",
+          id: "cbcaad35-1169-4a0c-89d1-2c38ac503cfb",
+          name: "Markdown",
+          color: "brown",
+        },
+        {
+          id: "89bcd714-f3c1-42c9-a3cc-2c5889c98e05",
+          name: "NotionAPI",
+          color: "default",
         },
       ],
     },
@@ -46,7 +92,10 @@ const retrievedPage = {
       title: [
         {
           type: "text",
-          text: { content: "Hello World Notion API", link: null },
+          text: {
+            content: "すべてのMarkdown",
+            link: null,
+          },
           annotations: {
             bold: false,
             italic: false,
@@ -55,11 +104,11 @@ const retrievedPage = {
             code: false,
             color: "default",
           },
-          plain_text: "Hello World Notion API",
+          plain_text: "すべてのMarkdown",
           href: null,
         },
       ],
     },
   },
-  url: "https://www.notion.so/Hello-World-Notion-API-4e63b38daeb647979699c2f9bf2463da",
+  url: "https://www.notion.so/Markdown-301306e7790249b8865bbc560bf4cc59",
 };
