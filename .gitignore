@@ -177,3 +177,5 @@ build/
 
 .env.local
 tmp/
+
+wbs-rs/target/*
