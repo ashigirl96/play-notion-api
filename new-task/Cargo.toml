@@ -3,6 +3,11 @@ name = "new-task"
 version = "0.1.0"
 edition = "2021"
 
+[dependencies]
+big_s = "1.0.2"
+dateparser = "0.1.6"
+chrono = "0.4.19"
+
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies.reqwest]

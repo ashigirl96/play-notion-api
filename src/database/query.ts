@@ -8,19 +8,20 @@ const notion = new Client({ auth: process.env.NOTION_API_KEY });
 (async () => {
   // https://www.notion.so/bc80d83f87914dc78d92caa4dc581faf?v=2e27b0c90cf046bc8a0917010b877251
   // https://www.notion.so/106b07299be6414bb14f7c53ef26fc50?v=4f64dd0b21a84069a2f69a4e8d68a298
-  const databaseId = "106b07299be6414bb14f7c53ef26fc50";
+  // https://www.notion.so/b667d49680cb4887b00612ed1df6668f?v=b658e57e16684dd1adb51fdea0c488ff
+  const databaseId = "b667d49680cb4887b00612ed1df6668f";
   const response = await notion.databases.query({
     database_id: databaseId,
-    filter: {
-      and: [
-        {
-          property: "status",
-          select: {
-            equals: "publish",
-          },
-        },
-      ],
-    },
+    // filter: {
+    // and: [
+    //   {
+    //     property: "status",
+    //     select: {
+    //       equals: "publish",
+    //     },
+    //   },
+    // ],
+    // },
   });
   const results = response;
   console.log(JSON.stringify(results, null, 2));

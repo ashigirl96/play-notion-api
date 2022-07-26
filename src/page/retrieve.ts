@@ -5,22 +5,19 @@ import { Client } from "@notionhq/client";
 
 const notion = new Client({ auth: process.env.NOTION_API_KEY });
 
-(async () => {
-  const blockId = "34ed09e2a63049008e05042e2c531060";
-  const response = await notion.blocks.children.list({
-    block_id: blockId,
-    page_size: 50,
-  });
-  console.log(response);
-})();
+// (async () => {
+//   const blockId = "34ed09e2a63049008e05042e2c531060";
+//   const response = await notion.blocks.children.list({
+//     block_id: blockId,
+//     page_size: 50,
+//   });
+//   console.log(response);
+// })();
+
+// https://www.notion.so/Q-learning-46f97db480a94d62a91432d338b7880d
 
 (async () => {
-  // https://www.notion.so/bc80d83f87914dc78d92caa4dc581faf?v=2e27b0c90cf046bc8a0917010b877251
-  // https://www.notion.so/106b07299be6414bb14f7c53ef26fc50?v=4f64dd0b21a84069a2f69a4e8d68a298
-  // const pageId = "301306e7790249b8865bbc560bf4cc59";
-  // https://www.notion.so/xxx-fe49f7ccb47a422d9bb239de3f26712a
-  // const pageId = "fe49f7ccb47a422d9bb239de3f26712a"; // xxx
-  const pageId = "34ed09e2a63049008e05042e2c531060";
+  const pageId = "46f97db480a94d62a91432d338b7880d";
 
   const response = await notion.pages.retrieve({
     page_id: pageId,

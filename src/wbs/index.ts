@@ -41,7 +41,7 @@ const toZoneISOString = (date: Date) => {
               },
             },
             {
-              property: "isToday?",
+              property: "isWeek?",
               checkbox: {
                 equals: true,
               },
@@ -52,17 +52,33 @@ const toZoneISOString = (date: Date) => {
     },
   });
 
+  console.log(JSON.stringify(response, null, 2))
+
   const { results } = response;
   for (const result of results) {
     // @ts-expect-error
-    const { properties } = result;
-    const { Date: date, MiniTasks, project, Job } = properties;
-    const startAt = addHours(startOfDay(parseISO(date.date.start)), 10);
-    const endAt = addHours(startAt, 3);
+    const { properties, id } = result;
+    const { Date: date, MiniTasks, project, Job, TaskName } = properties;
+
+    const parentTitle = TaskName.title[0].plain_text;
+    const parentStartTime = parseISO(date.date.start);
+    const startTime = addHours(startOfDay(parentStartTime), 10);
+    const startAt_ = parentStartTime > startTime ? parentStartTime : startTime;
+    const startAt = startAt_ > new Date() ? startAt_ : new Date();
+    const endAt = addHours(startAt, 1);
     const miniTaskIds: string[] = MiniTasks.relation.map(
       // @ts-expect-error
       (relation) => relation.id
     );
+
+    await notion.pages.update({
+      page_id: id,
+      properties: {
+        isParent: {
+          checkbox: true,
+        }
+      }
+    })
 
     // 親の情報を使って子の情報を更新
     for (const miniTaskId of miniTaskIds) {
@@ -70,9 +86,20 @@ const toZoneISOString = (date: Date) => {
       // @ts-expect-error
       if (response.properties.Date.date === null) {
         console.log(JSON.stringify(response, null, 2));
+        // @ts-expect-error
+        const childTitle = response.properties.TaskName.title[0].plain_text;
         await notion.pages.update({
           page_id: miniTaskId,
           properties: {
+            TaskName: {
+              title: [
+                {
+                  text: {
+                    content: `[${parentTitle}] ${childTitle}`,
+                  },
+                },
+              ],
+            },
             Date: {
               date: {
                 start: toZoneISOString(startAt),
@@ -87,4 +114,5 @@ const toZoneISOString = (date: Date) => {
       }
     }
   }
+
 })();

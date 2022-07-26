@@ -179,3 +179,5 @@ build/
 tmp/
 
 wbs-rs/target/*
+
+**/target/*
